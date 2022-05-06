@@ -47,6 +47,7 @@ typedef enum {
 #define DE_GUIF LGUI_T(DE_F)
 #define DE_GUIJ RGUI_T(DE_J)
 #define DE_SHEN SFT_T(KC_ENT)
+#define DE_SH_H SFT_T(DE_H)
 #define DE_CTBS CTL_T(KC_BSPC)
 // Tap dance macros
 #define DE_A_AE TD(TD_A_AUML)
@@ -77,11 +78,12 @@ typedef enum {
 
 // fourth layer mod taps
 #define KC_CTTB CTL_T(KC_TAB)
+#define KC_GUIDOT LGUI_T(DE_DOT)
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [_QWERTZ] = LAYOUT(
-    DE_Q,       DE_W,       DE_E,       DE_R,       DE_T,            DE_Z,     DE_U_UE,  DE_I,    DE_O_OE,   DE_P_SS,
-    DE_A_AE,    DE_SG_S,    DE_ALTD,    DE_GUIF,    DE_G,            DE_H,     DE_GUIJ,  DE_ALTK, DE_SG_L,   DE_CSSL,
+    DE_Q_AT,    DE_W,       DE_E,       DE_R,       DE_T,            DE_Z,     DE_U_UE,  DE_I,    DE_O_OE,   DE_P_SS,
+    DE_A_AE,    DE_SG_S,    DE_ALTD,    DE_GUIF,    DE_G,            DE_SH_H,  DE_GUIJ,  DE_ALTK, DE_SG_L,   DE_CSSL,
     DE_Y_TB,    DE_X,       DE_C,       DE_V,       DE_B,            DE_N,     DE_M,     DE_COMM, DE_DOT,    DE_MINS,
                                            DE_CTBS, DE_SHEN,    KC_SPC,    TO(_SYMBOLS)
   ),
@@ -101,9 +103,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   ),
 
   [_NUMBERS] = LAYOUT(
-    DE_1,       DE_2,       DE_3,       DE_4,       DE_5,            DE_6,     DE_7,     DE_8,    DE_9,      DE_0,
-    KC_CTTB,    KC_BSPC,    KC_LALT,    KC_LGUI,    KC_F11,          KC_F12,   KC_RGUI,  KC_LALT, KC_DEL,    KC_RCTL,
-    KC_F1,      KC_F2,      KC_F3,      KC_F4,      KC_F5,           KC_F6,    KC_F7,    KC_F8,   KC_F9,     KC_F10,
+    DE_1,       DE_2,       DE_3,       DE_4,       DE_5,            DE_6,     DE_7,      DE_8,    DE_9,      DE_0,
+    KC_CTTB,    KC_BSPC,    KC_LALT,    KC_GUIDOT,  KC_F11,          KC_F12,   KC_GUIDOT, KC_LALT, KC_DEL,    KC_RCTL,
+    KC_F1,      KC_F2,      KC_F3,      KC_F4,      KC_F5,           KC_F6,    KC_F7,     KC_F8,   KC_F9,     KC_F10,
                                        TO(_QWERTZ), DE_SHEN,    KC_SPC,    TO(_SYMBOLS)
   ),
 };
