@@ -277,7 +277,7 @@ void qat_finished(qk_tap_dance_state_t *state, void *user_data) {
 void qat_reset(qk_tap_dance_state_t *state, void *user_data) {
     switch (td_state) {
         case _TD_SINGLE_TAP:
-            unregister_code(DE_A);
+            unregister_code(DE_Q);
             break;
         case _TD_SINGLE_HOLD:
             unregister_code16(DE_AT);
