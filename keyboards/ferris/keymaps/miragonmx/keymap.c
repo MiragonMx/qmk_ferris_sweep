@@ -502,10 +502,10 @@ void caret_finished(qk_tap_dance_state_t *state, void *user_data) {
     switch (td_state) {
         case _TD_SINGLE_TAP:
             register_code16(DE_CIRC);
-            tap_code(KC_SPC);
             break;
         case _TD_SINGLE_HOLD:
             register_code16(DE_CIRC);
+            tap_code(KC_SPC);
             break;
         default:
             break;
@@ -529,10 +529,10 @@ void grave_finished(qk_tap_dance_state_t *state, void *user_data) {
     switch (td_state) {
         case _TD_SINGLE_TAP:
             register_code16(DE_GRV);
-            tap_code(KC_SPC);
             break;
         case _TD_SINGLE_HOLD:
             register_code16(DE_GRV);
+            tap_code(KC_SPC);
             break;
         default:
             break;
@@ -556,10 +556,10 @@ void acute_finished(qk_tap_dance_state_t *state, void *user_data) {
     switch (td_state) {
         case _TD_SINGLE_TAP:
             register_code(DE_ACUT);
-            tap_code(DE_ACUT);
             break;
         case _TD_SINGLE_HOLD:
             register_code(DE_ACUT);
+            tap_code(DE_ACUT);
             break;
         default:
             break;
