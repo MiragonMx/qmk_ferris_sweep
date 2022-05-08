@@ -36,7 +36,8 @@ typedef enum {
   _TD_NONE,
   _TD_UNKNOWN,
   _TD_SINGLE_TAP,
-  _TD_SINGLE_HOLD
+  _TD_SINGLE_HOLD,
+  _TD_DOUBLE_TAP
 } td_state_t;
 
 // first layer mod taps
@@ -179,6 +180,9 @@ td_state_t cur_dance(qk_tap_dance_state_t *state) {
     if (state->interrupted || !state->pressed) return _TD_SINGLE_TAP;
     else return _TD_SINGLE_HOLD;
   }
+  else if (state->count == 2) {
+    return _TD_DOUBLE_TAP;
+  }
   else return _TD_UNKNOWN;
 }
 
@@ -192,7 +196,12 @@ void aae_finished(qk_tap_dance_state_t *state, void *user_data) {
         case _TD_SINGLE_HOLD:
             register_code(DE_ADIA);
             break;
+        case _TD_DOUBLE_TAP:
+            tap_code(DE_A);
+            register_code(DE_A);
+            break;
         default:
+            tap_code(DE_A);
             break;
     }
 }
@@ -203,6 +212,9 @@ void aae_reset(qk_tap_dance_state_t *state, void *user_data) {
             break;
         case _TD_SINGLE_HOLD:
             unregister_code(DE_ADIA);
+            break;
+        case _TD_DOUBLE_TAP:
+            unregister_code(DE_A);
             break;
         default:
             break;
@@ -218,7 +230,12 @@ void ooe_finished(qk_tap_dance_state_t *state, void *user_data) {
         case _TD_SINGLE_HOLD:
             register_code(DE_ODIA);
             break;
+        case _TD_DOUBLE_TAP:
+            tap_code(DE_O);
+            register_code(DE_O);
+            break;
         default:
+            tap_code(DE_O);
             break;
     }
 }
@@ -229,6 +246,9 @@ void ooe_reset(qk_tap_dance_state_t *state, void *user_data) {
             break;
         case _TD_SINGLE_HOLD:
             unregister_code(DE_ODIA);
+            break;
+        case _TD_DOUBLE_TAP:
+            unregister_code(DE_O);
             break;
         default:
             break;
@@ -244,7 +264,12 @@ void uue_finished(qk_tap_dance_state_t *state, void *user_data) {
         case _TD_SINGLE_HOLD:
             register_code(DE_UDIA);
             break;
+        case _TD_DOUBLE_TAP:
+            tap_code(DE_U);
+            register_code(DE_U);
+            break;
         default:
+            tap_code(DE_U);
             break;
     }
 }
@@ -255,6 +280,9 @@ void uue_reset(qk_tap_dance_state_t *state, void *user_data) {
             break;
         case _TD_SINGLE_HOLD:
             unregister_code(DE_UDIA);
+            break;
+        case _TD_DOUBLE_TAP:
+            unregister_code(DE_U);
             break;
         default:
             break;
@@ -296,7 +324,12 @@ void pss_finished(qk_tap_dance_state_t *state, void *user_data) {
         case _TD_SINGLE_HOLD:
             register_code(DE_SS);
             break;
+        case _TD_DOUBLE_TAP:
+            tap_code(DE_P);
+            register_code(DE_P);
+            break;
         default:
+            tap_code(DE_P);
             break;
     }
 }
@@ -307,6 +340,9 @@ void pss_reset(qk_tap_dance_state_t *state, void *user_data) {
             break;
         case _TD_SINGLE_HOLD:
             unregister_code(DE_SS);
+            break;
+        case _TD_DOUBLE_TAP:
+            unregister_code(DE_P);
             break;
         default:
             break;
@@ -322,7 +358,12 @@ void ytab_finished(qk_tap_dance_state_t *state, void *user_data) {
         case _TD_SINGLE_HOLD:
             register_code(KC_TAB);
             break;
+        case _TD_DOUBLE_TAP:
+            tap_code(DE_Y);
+            register_code(DE_Y);
+            break;
         default:
+            tap_code(DE_Y);
             break;
     }
 }
@@ -333,6 +374,9 @@ void ytab_reset(qk_tap_dance_state_t *state, void *user_data) {
             break;
         case _TD_SINGLE_HOLD:
             unregister_code(KC_TAB);
+            break;
+        case _TD_DOUBLE_TAP:
+            unregister_code(DE_Y);
             break;
         default:
             break;
