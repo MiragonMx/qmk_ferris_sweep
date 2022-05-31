@@ -76,7 +76,7 @@ typedef enum {
 #define KC_GDWN RGUI_T(KC_DOWN)
 #define KC_A_UP LALT_T(KC_UP)
 #define KC_GUIS LSG(KC_NO)
-#define KC_CTRS RSC(KC_NO)
+#define KC_CTRS RCS(KC_NO)
 
 // fourth layer mod taps
 #define KC_CTTB CTL_T(KC_TAB)
