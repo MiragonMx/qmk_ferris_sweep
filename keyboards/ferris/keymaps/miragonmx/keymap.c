@@ -75,7 +75,8 @@ typedef enum {
 // third layer mod taps
 #define KC_GDWN RGUI_T(KC_DOWN)
 #define KC_A_UP LALT_T(KC_UP)
-#define KC_GUIS LSG_T(KC_NO)
+#define KC_GUIS LSG(KC_NO)
+#define KC_CTRS RSC(KC_NO)
 
 // fourth layer mod taps
 #define KC_CTTB CTL_T(KC_TAB)
@@ -98,8 +99,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   [_NAV] = LAYOUT(
     KC_NO,      KC_WH_L,    KC_MS_U,    KC_WH_R,    KC_NO,            KC_MUTE,  KC_VOLD,  KC_VOLU, KC_BRID,  KC_BRIU,
-    KC_GUIS,    KC_MS_L,    KC_MS_D,    KC_MS_R,    KC_NO,            KC_LEFT,  KC_GDWN,  KC_A_UP, KC_RGHT,  KC_TRNS,
-    KC_NO,      KC_NO,      KC_WH_U,    KC_WH_D,    KC_NO,            KC_NO,    KC_HOME,  KC_END,  KC_NO,    KC_NO,
+    KC_GUIS,    KC_MS_L,    KC_MS_D,    KC_MS_R,    KC_LCTL,          KC_LEFT,  KC_GDWN,  KC_A_UP, KC_RGHT,  KC_TRNS,
+    KC_CTRS,    KC_NO,      KC_WH_U,    KC_WH_D,    KC_NO,            KC_NO,    KC_HOME,  KC_END,  KC_NO,    KC_NO,
                                        TO(_QWERTZ), KC_BTN1,    KC_BTN2,  TO(_SYMBOLS)
   ),
 
