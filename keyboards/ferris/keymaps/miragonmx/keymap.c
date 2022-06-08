@@ -29,6 +29,7 @@ enum eTapDances {
     TD_GRAVE    , // `
     TD_ACUTE    , // ´
     TD_LCURL_LT ,
+    TD_SPC_ENT  ,
     TD_RCURL_GT
 };
 
@@ -48,8 +49,9 @@ typedef enum {
 #define DE_GUIF LGUI_T(DE_F)
 #define DE_GUIJ RGUI_T(DE_J)
 #define DE_SHEN SFT_T(KC_ENT)
-#define DE_SH_H SFT_T(DE_H)
+//#define DE_SH_H SFT_T(DE_H)
 #define DE_CTBS CTL_T(KC_BSPC)
+#define DE_SPEN TD(TD_SPC_ENT)
 // Tap dance macros
 #define DE_A_AE TD(TD_A_AUML)
 #define DE_O_OE TD(TD_O_OUML)
@@ -85,9 +87,9 @@ typedef enum {
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [_QWERTZ] = LAYOUT(
     DE_Q_AT,    DE_W,       DE_E,       DE_R,       DE_T,            DE_Z,     DE_U_UE,  DE_I,    DE_O_OE,   DE_P_SS,
-    DE_A_AE,    DE_SG_S,    DE_ALTD,    DE_GUIF,    DE_G,            DE_SH_H,  DE_GUIJ,  DE_ALTK, DE_SG_L,   DE_CSSL,
+    DE_A_AE,    DE_SG_S,    DE_ALTD,    DE_GUIF,    DE_G,            DE_H,     DE_GUIJ,  DE_ALTK, DE_SG_L,   DE_CSSL,
     DE_Y_TB,    DE_X,       DE_C,       DE_V,       DE_B,            DE_N,     DE_M,     DE_COMM, DE_DOT,    DE_MINS,
-                                           DE_CTBS, DE_SHEN,    KC_SPC,    TO(_SYMBOLS)
+                                           DE_CTBS, KC_RSFT,    DE_SPEN,  TO(_SYMBOLS)
   ),
 
   [_SYMBOLS] = LAYOUT(
@@ -108,7 +110,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     DE_1,       DE_2,       DE_3,       DE_4,       DE_5,            DE_6,     DE_7,      DE_8,    DE_9,      DE_0,
     KC_CTTB,    KC_BSPC,    KC_LALT,    KC_GUIDOT,  KC_F11,          KC_F12,   KC_GUIDOT, KC_LALT, KC_DEL,    KC_RCTL,
     KC_F1,      KC_F2,      KC_F3,      KC_F4,      KC_F5,           KC_F6,    KC_F7,     KC_F8,   KC_F9,     KC_F10,
-                                       TO(_QWERTZ), DE_SHEN,    KC_SPC,    TO(_SYMBOLS)
+                                       TO(_QWERTZ), KC_RSFT,    DE_SPEN,  TO(_SYMBOLS)
   ),
 };
 
@@ -173,6 +175,9 @@ void lcurllt_reset(qk_tap_dance_state_t *state, void *user_data);
 // }/>
 void rcurlgt_finished(qk_tap_dance_state_t *state, void *user_data);
 void rcurlgt_reset(qk_tap_dance_state_t *state, void *user_data);
+// space/enter
+void spcent_finished(qk_tap_dance_state_t *state, void *user_data);
+void spcent_reset(qk_tap_dance_state_t *state, void *user_data);
 
 
 // Determine the tapdance state to return
@@ -675,6 +680,48 @@ void rcurlgt_reset(qk_tap_dance_state_t *state, void *user_data) {
     }
 }
 
+void spcent_finished(qk_tap_dance_state_t *state, void *user_data) {
+    td_state = cur_dance(state);
+    switch (td_state) {
+        case _TD_SINGLE_TAP:
+            register_code(KC_SPC);
+            break;
+        case _TD_SINGLE_HOLD:
+            register_code(KC_ENT);
+            break;
+        case _TD_DOUBLE_TAP:
+            tap_code(KC_SPC);
+            register_code(KC_SPC);
+            break;
+        default:
+            tap_code(KC_SPC);
+            break;
+    }
+}
+void spcent_reset(qk_tap_dance_state_t *state, void *user_data) {
+    switch (td_state) {
+        case _TD_SINGLE_TAP:
+            unregister_code(KC_SPC);
+            break;
+        case _TD_SINGLE_HOLD:
+            unregister_code(KC_ENT);
+            break;
+        case _TD_DOUBLE_TAP:
+            unregister_code(KC_SPC);
+            break;
+        default:
+            break;
+    }
+}
+
+uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
+    switch (keycode) {
+      case DE_SPEN:
+        return TAPPING_TERM - 35;
+      default:
+        return TAPPING_TERM;
+}}
+
 // Define `ACTION_TAP_DANCE_FN_ADVANCED()` for each tapdance keycode,
 // passing in `finished` and `reset` functions
 qk_tap_dance_action_t tap_dance_actions[] = {
@@ -694,6 +741,7 @@ qk_tap_dance_action_t tap_dance_actions[] = {
     [TD_GRAVE   ] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, grave_finished,    grave_reset),
     [TD_ACUTE   ] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, acute_finished,    acute_reset),
     [TD_LCURL_LT] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, lcurllt_finished,  lcurllt_reset),
+    [TD_SPC_ENT ] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, spcent_finished,   spcent_reset),
     [TD_RCURL_GT] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, rcurlgt_finished,  rcurlgt_reset)
 };
 
