@@ -399,7 +399,12 @@ void ctsl_finished(qk_tap_dance_state_t *state, void *user_data) {
             register_code(KC_RCTL);
             register_code(KC_RSFT);
             break;
+        case _TD_DOUBLE_TAP:
+            tap_code16(DE_SLSH);
+            register_code16(DE_SLSH);
+            break;
         default:
+            tap_code16(DE_SLSH);
             break;
     }
 }
@@ -411,6 +416,9 @@ void ctsl_reset(qk_tap_dance_state_t *state, void *user_data) {
         case _TD_SINGLE_HOLD:
             unregister_code(KC_RCTL);
             unregister_code(KC_RSFT);
+            break;
+        case _TD_DOUBLE_TAP:
+            unregister_code16(DE_SLSH);
             break;
         default:
             break;
